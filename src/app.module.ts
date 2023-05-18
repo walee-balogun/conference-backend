@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TalksModule } from './talks/talks.module';
 import config from './config/config';
 
 const ENV = process.env.ENV ?? 'local';
@@ -27,7 +28,8 @@ console.log('ENV: ', ENV);
       }),
       inject: [ConfigService]
     }),
-    MongooseModule.forRoot('mongodb://localhost:27017/conference')],
+    MongooseModule.forRoot('mongodb://localhost:27017/conference'),
+    TalksModule],
   controllers: [AppController],
   providers: [AppService],
 })
