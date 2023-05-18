@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TalksService } from './talks.service';
 import { TalksController } from './talks.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Talk, TalkSchema } from './entities/talk.schema';
+import { Talk, TalkSchema } from './schemas/talk.schema';
 import { TalksRepository } from './talks.repository';
 
 @Module({

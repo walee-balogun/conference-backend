@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTalkDto } from './dto/create-talk.dto';
 import { TalksRepository } from './talks.repository';
-import { Talk } from './entities/talk.schema';
+import { Talk } from './schemas/talk.schema';
 
 @Injectable()
 export class TalksService {

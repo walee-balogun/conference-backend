@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { Talk, TalkDocument } from "./entities/talk.schema";
+import { Talk, TalkDocument } from "./schemas/talk.schema";
 import { Model } from "mongoose";
 import { CreateTalkDto } from "./dto/create-talk.dto";
 import * as moment from 'moment';
