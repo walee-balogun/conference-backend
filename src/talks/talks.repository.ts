@@ -1,9 +1,10 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Talk, TalkDocument } from "./schemas/talk.schema";
 import { Model } from "mongoose";
 import { CreateTalkDto } from "./dto/create-talk.dto";
 import * as moment from 'moment';
+import { Attendee } from "src/attendees/schemas/attendee.schema";
 
 
 @Injectable()
@@ -26,4 +27,40 @@ export class TalksRepository {
 
         return this.talkModel.create(talk);
     }
+
+    async addAttendee(talkId: string, attendees: Attendee[]): Promise<Talk> {
+
+        const talk = await this.findOneById(talkId);
+        
+        const talkDocument = new this.talkModel(talk);
+
+        if (talk.attendees) {
+
+            //talkDocument.attendees.some(attendee => attendees.includes(attendee))
+
+            talkDocument.attendees.push(...attendees);
+
+        } else {
+
+            talkDocument.attendees = attendees;
+
+        }
+
+        talkDocument.updatedAt = moment().toDate();
+
+        return talkDocument.save();
+    }
+
+    async findOneById(talkId: string): Promise<Talk> {
+
+        const talkDocument = await this.talkModel.findById(talkId).exec();
+
+        if (!talkDocument) {
+
+            throw new NotFoundException('Talk does not exist');
+        }
+
+        return talkDocument;
+    }
+
 }
